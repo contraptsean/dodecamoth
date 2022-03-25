@@ -1,8 +1,13 @@
 <template>
+<!--ui help buttons-->
+<p :class="{'d-none': closeHelp}"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <i class="bi bi-question-octagon fs-1"></i>
+</button><button type="button" class="btn-close btn-close-white" aria-label="Close" @click="closeHelper"></button></p>
+  <!--canvas rendering-->
   <Renderer ref="renderer" resize :orbit-ctrl="{ enableDamping: true, dampingFactor: 0.05 }" pointer @click="randomColors">
-    <Camera :position="{ z: 200 }" />
+    <Camera :position="{ z: 300 }" />
     <Scene>
-      <PointLight ref="light" color="#FFC0C0" />
+      <PointLight ref="light" color="#ffc0c0" />
 
       <InstancedMesh ref="imesh" :count="NUM_INSTANCES">
         <DodecahedronGeometry :radius="5" />
@@ -15,9 +20,41 @@
       <FXAAPass />
     </EffectComposer>
   </Renderer>
+  <!--modal-->
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">It's dangerous to go alone! Take these moths..</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <span class="d-none d-md-block"><strong>Desktop Instructions</strong>
+          <br /><i class="bi bi-mouse2"></i> The Moths will Follow your Cursor
+          <br /><i class="bi bi-mouse2"></i> Click to Change Color
+          <br /><i class="bi bi-mouse2"></i> Drag to Pan
+          <br /><i class="bi bi-mouse2"></i> Scroll to Zoom
+        </span>
+        <span class="d-block d-md-none"><strong>Mobile Instructions</strong>
+          <br /><i class="bi bi-hand-index-fill"></i> Tap to Change Color
+          <br /><i class="bi bi-hand-index-fill"></i> Tap to Set Light Point
+          <br /><i class="bi bi-hand-index-fill"></i> Drag to Pan
+          <br /><i class="bi bi-hand-index-fill"></i> Pinch to Zoom
+          </span>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
+import { ref } from 'vue'
 import { Color, InstancedBufferAttribute , MathUtils, Object3D, Vector3 } from 'three';
 import {
   Camera,
@@ -63,6 +100,7 @@ export default {
         attraction: 0.0025 + rnd(0, 0.01),
         vlimit: 0.3 + rnd(0, 0.2),
       });
+    var closeHelp = ref(false);
     }
     return {
       NUM_INSTANCES,
@@ -71,6 +109,7 @@ export default {
       target,
       dummyO,
       dummyV,
+      closeHelp
     };
   },
   mounted() {
@@ -123,6 +162,9 @@ export default {
         colors.push(color.r, color.g, color.b);
       }
       this.imesh.geometry.setAttribute('color', new InstancedBufferAttribute(new Float32Array(colors), 3));
+    },
+    closeHelper() {
+      this.closeHelp = !this.closeHelp;
     }
   },
 };
@@ -136,5 +178,30 @@ canvas {
   min-height: 100vh;
   max-width: 100vw;
 
+}
+p {
+  position:absolute;
+  z-index: 1;
+  top:1rem;
+  right:5rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+}
+p .btn {
+  color:#ffc0c0;
+}
+p .btn:hover {
+  color:#bbb;
+}
+p .btn:active,
+p .btn:focus {
+  outline:none;
+  box-shadow: none;
+  border-bottom: 3px solid #ddd;
+}
+.modal-content {
+  background-color:#1c2333;
+  color:#eee;
 }
 </style>
