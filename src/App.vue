@@ -26,12 +26,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">It's dangerous to go alone! Take these moths..</h5>
+        <h5 class="modal-title text-gradient-blue" id="exampleModalLabel">It's dangerous to go alone! Take these moths..</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-gradient-red">
         <span class="d-none d-md-block"><strong>Desktop Instructions</strong>
-          <br /><i class="bi bi-mouse2"></i> The Moths will Follow your Cursor
+          <br /><i class="bi bi-mouse2"></i> The Moths will Swarm your Cursor
           <br /><i class="bi bi-mouse2"></i> Click to Change Color
           <br /><i class="bi bi-mouse2"></i> Drag to Pan
           <br /><i class="bi bi-mouse2"></i> Scroll to Zoom
@@ -46,7 +46,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-gradient-border" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -203,5 +203,26 @@ p .btn:focus {
 .modal-content {
   background-color:#1c2333;
   color:#eee;
+}
+.text-gradient-red {
+  background: linear-gradient(to right, #ffc0c0, #F27121);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-blue {
+  background: linear-gradient(to right,  #00c0c0, #ffc0c0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.btn-gradient-border {
+  color: #fff;
+  border: 2px double transparent;
+  background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)), radial-gradient(circle at left top, rgb(1, 110, 218), rgb(255, 100, 192));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.btn-gradient-border:hover {
+  color:#ccc;
 }
 </style>
